@@ -1,0 +1,1 @@
+hurtBounce = false;
