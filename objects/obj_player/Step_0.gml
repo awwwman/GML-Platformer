@@ -4,15 +4,17 @@ function handleControls() {
 	moveDir += keyboard_check(ord("D")) ? 1 : 0;
 
 	// Decide whether to apply friction or acceleration based on the distance of the movement direction
-	if (abs(moveDir) > 0) {
-		velX = lerp(velX, moveDir * driverSpeed * 1/60, driverAccel);
-		if (moveDir) > 0 {
-			facing = 1
+	if (!wallBouncing) {
+		if (abs(moveDir) > 0) {
+			velX = lerp(velX, moveDir * driverSpeed * 1/60, driverAccel);
+			if (moveDir) > 0 {
+				facing = 1
+			} else {
+				facing = -1;	
+			}
 		} else {
-			facing = -1;	
+			velX = lerp(velX, 0, driverFrict);	
 		}
-	} else {
-		velX = lerp(velX, 0, driverFrict);	
 	}
 	
 	if (abs(onWall) == 0 && grounded && keyboard_check_pressed(vk_space)) {
@@ -27,6 +29,8 @@ function handleControls() {
 		velX = driverBounceAmount * -onWall;
 		wallBounceLeft -= 1
 		hasJumped = true;
+		wallBouncing = true;
+		alarm[2] = 15
 	}
 	
 	if (abs(moveDir) > 0 && grounded) {
@@ -55,7 +59,7 @@ repeat(remainder) {
 			if (collision_objs[i] == obj_spike) {
 				if (!hurtBounce) {
 					hurtBounce = true;
-					velY = -15;
+					velY = -15 * (velX == 0 ? 1.5 : 1);
 					velX = sign(velX) * -2;
 					health -= 10;
 					alarm[0] = hurtTime;
@@ -90,8 +94,8 @@ repeat(remainder) {
 			if (collision_objs[i] == obj_spike) {
 				if (!hurtBounce) {
 					hurtBounce = true;
-					velY = -15;
-					velX = sign(velX) * -2;
+					velY = -15 * (velX == 0 ? 1.5 : 1);
+					velX = sign(velX) * -5;
 					health -= 10;
 					alarm[0] = hurtTime;
 				}	

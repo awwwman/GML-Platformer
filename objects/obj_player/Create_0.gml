@@ -25,6 +25,7 @@ hasJumped = false;
 coyoteTime = 5;
 wasGrounded = false;
 onWall = 0;
+wallBouncing = false;
 wallBounceLeft = 2;
 
 // driver draw variables
