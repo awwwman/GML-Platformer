@@ -11,6 +11,8 @@ driverJumpMax = 20;
 driverJumpMin = 2.5;
 driverBounceAmount = 15;
 driverBounceMax = 5;
+driverBounceLength = 5;
+driverWallFriction = 4;
 
 // driver movement variables
 velX = 0;

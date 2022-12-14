@@ -30,7 +30,8 @@ function handleControls() {
 		wallBounceLeft -= 1
 		hasJumped = true;
 		wallBouncing = true;
-		alarm[2] = 15
+		facing = -facing;
+		alarm[2] = driverBounceLength;
 	}
 	
 	if (abs(moveDir) > 0 && grounded) {
@@ -50,8 +51,8 @@ if (hurtBounce) {
 }
 
 // Handling collision points separately for each axis
-var	remainder = abs(velX)
-var step = sign(velX)
+var	remainder = abs(velX);
+var step = sign(velX);
 var collided = false;
 repeat(remainder) {
 	for (var i = 0; i < array_length(collision_objs); i++) {
@@ -60,14 +61,19 @@ repeat(remainder) {
 				if (!hurtBounce) {
 					hurtBounce = true;
 					velY = -15 * (velX == 0 ? 1.5 : 1);
-					velX = sign(velX) * -2;
+					velX = step * -2;
 					health -= 10;
 					alarm[0] = hurtTime;
 				}	
+			} else if (collision_objs[i] == obj_crate) {
+				var obj = instance_place(x + step, y, collision_objs[i]);
+				obj.velX += step * obj.boxWeight;
 			} else {
 				velX = 0;
-				onWall = step;
-				hasJumped = false;
+				if (abs(moveDir) > 0) {
+					onWall = step;
+					hasJumped = false;
+				}
 			}
 			collided = true;
 			break;
@@ -79,14 +85,16 @@ repeat(remainder) {
 }
 
 // Apply gravity and then reset to zero if there is a collision point
-if (abs(onWall) > 0 && wallBounceLeft > 0 && !grounded && velY > 0) {
-	velY = 0
+if (abs(onWall) > 0 && velY > 0 && abs(moveDir) > 0) {
+	velY = 0;
+} else if (abs(onWall) > 0 && wallBouncing && abs(moveDir) > 0) {
+	velY += driverWallFriction * 1/60;
 } else {
-	velY += driverGravity * 1/60	
+	velY += driverGravity * 1/60;	
 }
 
-var	remainder = abs(velY)
-var step = sign(velY)
+var	remainder = abs(velY);
+var step = sign(velY);
 var collided = false;
 repeat(remainder) {
 	for (var i = 0; i < array_length(collision_objs); i++) {

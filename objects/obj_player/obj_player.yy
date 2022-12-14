@@ -22,7 +22,7 @@
   "physicsAngularDamping": 0.1,
   "physicsFriction": 0.2,
   "physicsStartAwake": true,
-  "physicsKinematic": false,
+  "physicsKinematic": true,
   "physicsShapePoints": [],
   "eventList": [
     {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":0,"eventType":0,"collisionObjectId":null,},
