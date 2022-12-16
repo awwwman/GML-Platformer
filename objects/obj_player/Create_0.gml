@@ -1,4 +1,5 @@
 // driver physics properties
+collision_objs = [obj_block, obj_crate, obj_spike];
 driverScaleX = 16;
 driverScaleY = 28;
 driverGravity = 64;
@@ -36,4 +37,4 @@ spinny = 0;
 drawAnim = spr_player_idle;
 frame = 0;
 
-collision_objs = [obj_block, obj_crate, obj_spike];
+driverSlot = 0;

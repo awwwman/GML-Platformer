@@ -8,9 +8,9 @@ function handleControls() {
 		if (abs(moveDir) > 0) {
 			velX = lerp(velX, moveDir * driverSpeed * 1/60, driverAccel);
 			if (moveDir) > 0 {
-				facing = 1
+				image_xscale = 1
 			} else {
-				facing = -1;	
+				image_xscale = -1;	
 			}
 		} else {
 			velX = lerp(velX, 0, driverFrict);	
@@ -30,16 +30,29 @@ function handleControls() {
 		wallBounceLeft -= 1
 		hasJumped = true;
 		wallBouncing = true;
-		facing = -facing;
+		image_xscale = -image_xscale;
 		alarm[2] = driverBounceLength;
 	}
 	
+	if (keyboard_check_pressed(ord("1"))) {
+		driverSlot = driverSlot > 0 ? 0 : 1
+	}
+	if (mouse_check_button_pressed(mb_left)) {
+		switch driverSlot { 
+			case 1:
+				var shuriken_instance = instance_create_layer(x, y - 25, "Instances", obj_shuriken);
+				shuriken_instance.direction = point_direction(x, y - 25, mouse_x, mouse_y);
+				break;
+		}
+	}
+	
+	// DRAW EVENT: draw_sprite_ext(drawAnim, frame, x, y, facing, 1, spinny, c_white, 1);
 	if (abs(moveDir) > 0 && grounded) {
-		drawAnim = spr_player_walk;
+		sprite_index = spr_player_walk;
 	} else if (!grounded) {
-		drawAnim = spr_player_air;	
+		sprite_index = spr_player_air;	
 	} else {
-		drawAnim = spr_player_idle;	
+		sprite_index = spr_player_idle;	
 	}
 }
 
@@ -70,10 +83,10 @@ repeat(remainder) {
 				obj.velX += step * obj.boxWeight;
 			} else {
 				velX = 0;
-				if (abs(moveDir) > 0) {
-					onWall = step;
-					hasJumped = false;
-				}
+			}
+			if (abs(moveDir) > 0) {
+				onWall = step;
+				hasJumped = false;
 			}
 			collided = true;
 			break;

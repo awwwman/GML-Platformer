@@ -5,8 +5,10 @@
   "resources": [
     {"id":{"name":"obj_block","path":"objects/obj_block/obj_block.yy",},"order":1,},
     {"id":{"name":"obj_crate","path":"objects/obj_crate/obj_crate.yy",},"order":5,},
+    {"id":{"name":"obj_shuriken","path":"objects/obj_shuriken/obj_shuriken.yy",},"order":6,},
     {"id":{"name":"spr_crate","path":"sprites/spr_crate/spr_crate.yy",},"order":5,},
     {"id":{"name":"obj_spike","path":"objects/obj_spike/obj_spike.yy",},"order":3,},
+    {"id":{"name":"shuriken","path":"sprites/shuriken/shuriken.yy",},"order":6,},
     {"id":{"name":"spr_spike","path":"sprites/spr_spike/spr_spike.yy",},"order":3,},
     {"id":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},"order":0,},
     {"id":{"name":"obj_crowbar","path":"objects/obj_crowbar/obj_crowbar.yy",},"order":4,},
