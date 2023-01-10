@@ -63,6 +63,10 @@ if (hurtBounce) {
 	handleControls();
 }
 
+if (health <= 0 || y > 2660) {
+	room_restart();	
+}
+
 // Handling collision points separately for each axis
 var	remainder = abs(velX);
 var step = sign(velX);
@@ -84,10 +88,8 @@ repeat(remainder) {
 			} else {
 				velX = 0;
 			}
-			if (abs(moveDir) > 0) {
-				onWall = step;
-				hasJumped = false;
-			}
+			onWall = step;
+			hasJumped = false;
 			collided = true;
 			break;
 		}

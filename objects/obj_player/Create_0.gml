@@ -37,4 +37,4 @@ spinny = 0;
 drawAnim = spr_player_idle;
 frame = 0;
 
-driverSlot = 0;
+driverSlot = 1;
